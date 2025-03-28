@@ -4,8 +4,10 @@
 :root {
   /* Theme Colors - Dark Mode (default) */
   --background: #0a0a0a;
+  --background-rgb: 10, 10, 10;
   --background-secondary: #0f0f0f;
   --foreground: #fafafa;
+  --foreground-rgb: 250, 250, 250;
   --primary: #9d4edd;
   --primary-rgb: 157, 78, 221;
   --primary-light: #c77dff;
@@ -80,8 +82,10 @@
 
 [data-theme="light"] {
   --background: #f8f9fa;
+  --background-rgb: 248, 249, 250;
   --background-secondary: #f0f0f0;
   --foreground: #111111;
+  --foreground-rgb: 17, 17, 17;
   --primary: #7b2cbf;
   --primary-rgb: 123, 44, 191;
   --primary-light: #9d4edd;
@@ -198,6 +202,21 @@ img {
   border: 1px solid var(--glass-border);
   border-radius: var(--border-radius-lg);
   box-shadow: 0 4px 30px var(--glass-shadow);
+}
+
+/* Mobile-optimized glass effect */
+@supports (backdrop-filter: blur(30px)) or (-webkit-backdrop-filter: blur(30px)) {
+  .mobile-glass {
+    background-color: rgba(17, 17, 17, 0.45);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+  }
+}
+
+@supports not ((backdrop-filter: blur(30px)) or (-webkit-backdrop-filter: blur(30px))) {
+  .mobile-glass {
+    background-color: rgba(17, 17, 17, 0.85);
+  }
 }
 
 /* Neumorphic Card */
