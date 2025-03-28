@@ -29,22 +29,22 @@ const About = () => {
     {
       icon: faUser,
       title: 'Who I Am',
-      description: 'A passionate technologist driven by creativity and innovation, constantly exploring the intersection of design and technology.',
+      description: 'I am Devinder Sharma, a dedicated student from Haryana, passionate about technology and web development. I have been innovating online since class 10.',
     },
     {
       icon: faCode,
       title: 'What I Do',
-      description: 'I create stunning digital experiences with modern JavaScript frameworks, always striving for the perfect balance of form and function.',
+      description: 'I design and develop modern, user-friendly websites and digital solutions. I blend creative design with efficient code to craft experiences that engage users.',
     },
     {
       icon: faLightbulb,
       title: 'How I Work',
-      description: 'I approach each project with a thoughtful methodology focused on efficient problem-solving and user-centric design principles.',
+      description: 'My work is driven by continuous learning, experimental design, and a focus on user experience. I build projects through self-education, creativity, and practical efforts.',
     },
     {
       icon: faBriefcase,
       title: 'My Journey',
-      description: 'Self-taught developer with a dedication to continuous learning and improving my skills through hands-on projects and challenges.',
+      description: 'My journey began with a successful website in class 10 and evolved through self-learning and experimentation, fueling my passion for full-stack and AI-enhanced development.',
     },
   ];
   
@@ -76,19 +76,13 @@ const About = () => {
           >
             <h3>Hello, I'm <span className="text-gradient">Devinder</span></h3>
             <p>
-              I'm a passionate self-taught developer with a keen eye for design and a love for creating
-              beautiful, functional digital experiences. My journey in technology started with a
-              curiosity about how things work and has evolved into a professional pursuit of excellence
-              in web development.
+              I’m Devinder Sharma from Haryana. My passion for technology began in class 10 when I built a website that reached over 50K visitors and ranked on Google. This achievement ignited my creative spirit and set me on a lifelong path in web development.
             </p>
             <p>
-              I believe in the power of continuous learning, which has led me to expand my skills through
-              various courses and programs, including those from Meta and Harvard. I enjoy tackling complex
-              problems and finding elegant solutions that prioritize user experience.
+              I experimented by launching over ten's of gaming websites. Though not all succeeded, each   project taught me the vital role of a well-designed user interface. This journey encouraged me to pursue self-learning through platforms like YouTube, CS50, Meta, and freeCodeCamp.
             </p>
             <p>
-              When I'm not coding, you can find me exploring new technologies, contributing to open-source
-              projects, or working on personal creative endeavors that blend technology with art.
+              I am eager to master full-stack development, blending front-end and back-end technologies. I continuously build scalable projects—often integrating AI—to enhance efficiency and innovation.
             </p>
           </motion.div>
           

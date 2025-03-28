@@ -628,7 +628,8 @@ const Hero = () => {
               whileHover={{ 
                 scale: isTouchDevice ? 1.02 : 1.05, 
                 boxShadow: "0 10px 25px rgba(157, 78, 221, 0.4)",
-                textShadow: "0 0 8px rgba(255, 255, 255, 0.8)"
+                textShadow: "0 0 8px rgba(255, 255, 255, 0.8)",
+                color: "#FFFFFF"
               }}
               whileTap={{ scale: 0.95 }}
               initial={{ boxShadow: "0 4px 15px rgba(157, 78, 221, 0.2)" }}

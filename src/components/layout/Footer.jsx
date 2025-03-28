@@ -1,15 +1,16 @@
+import React from 'react';
 import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGithub, faLinkedin, faTwitter } from '@fortawesome/free-brands-svg-icons';
+import { faGithub, faLinkedin, faInstagram } from '@fortawesome/free-brands-svg-icons';
 import { faHeart, faEnvelope, faPhone, faMapMarkerAlt, faArrowUp } from '@fortawesome/free-solid-svg-icons';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   
   const socialLinks = [
-    { name: 'GitHub', icon: faGithub, url: 'https://github.com' },
-    { name: 'LinkedIn', icon: faLinkedin, url: 'https://linkedin.com' },
-    { name: 'Twitter', icon: faTwitter, url: 'https://twitter.com' },
+    { name: 'GitHub', icon: faGithub, url: 'https://github.com/imDevinderSharma' },
+    { name: 'LinkedIn', icon: faLinkedin, url: 'https://www.linkedin.com/in/imdevindersharma/' },
+    { name: 'Instagram', icon: faInstagram, url: 'https://www.instagram.com/imdevindersharma/' },
   ];
   
   const quickLinks = [
@@ -56,8 +57,7 @@ const Footer = () => {
           <motion.div className="footer-section about-section" variants={itemVariants}>
             <h3 className="footer-title">Devinder</h3>
             <p className="footer-description">
-              A passionate full-stack web developer focused on creating efficient, responsive, 
-              and user-friendly applications.
+              I am Devinder Sharma, a dedicated student from Haryana, passionate about technology and web development. I have been innovating online since class 10.
             </p>
             <div className="footer-social">
               {socialLinks.map((link) => (
@@ -104,8 +104,8 @@ const Footer = () => {
                 <div className="footer-icon-wrapper">
                   <FontAwesomeIcon icon={faEnvelope} className="footer-contact-icon" />
                 </div>
-                <a href="mailto:devinder@example.com" className="info-value">
-                  devinder@example.com
+                <a href="mailto:iamDevinderSharma15122005@gmail.com" className="info-value">
+                  iamDevinderSharma15122005@gmail.com
                 </a>
               </motion.li>
               <motion.li 
@@ -116,7 +116,7 @@ const Footer = () => {
                   <FontAwesomeIcon icon={faPhone} className="footer-contact-icon" />
                 </div>
                 <a href="tel:+15551234567" className="info-value">
-                  +1 (555) 123-4567
+                  +91 63987 95334
                 </a>
               </motion.li>
               <motion.li 
@@ -126,7 +126,7 @@ const Footer = () => {
                 <div className="footer-icon-wrapper">
                   <FontAwesomeIcon icon={faMapMarkerAlt} className="footer-contact-icon" />
                 </div>
-                <span className="info-value">New York, NY</span>
+                <span className="info-value">Haryana, India</span>
               </motion.li>
             </ul>
           </motion.div>
@@ -157,7 +157,14 @@ const Footer = () => {
           </div>
           <div className="back-to-top">
             <motion.a
-              href="#home"
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                window.scrollTo({
+                  top: 0,
+                  behavior: 'smooth'
+                });
+              }}
               className="top-btn"
               whileHover={{ y: -5 }}
               whileTap={{ scale: 0.9 }}

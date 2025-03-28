@@ -1,37 +1,81 @@
 import { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence, useMotionValue, useTransform, useSpring } from 'framer-motion';
-import { useAnimateOnScroll } from '../../hooks/useAnimateOnScroll';
+import { motion, AnimatePresence } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
-import { faExternalLinkAlt, faArrowLeft, faArrowRight, faCode, faLaptopCode, faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
+import { 
+  faExternalLinkAlt, 
+  faLeaf, 
+  faUtensils, 
+  faUser,
+  faChevronLeft,
+  faChevronRight
+} from '@fortawesome/free-solid-svg-icons';
+
+// Import project images from assets
+import luckyShrubImage from '../../assets/lucky-shrub.jpg';
+import tableBookingImage from '../../assets/table-booking.jpg';
+import bioPageImage from '../../assets/bio-page.png';
 
 const Projects = () => {
-  const { ref, controls } = useAnimateOnScroll(0.1);
   const [activeProject, setActiveProject] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const [direction, setDirection] = useState(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [showAll, setShowAll] = useState(false);
+  const [progress, setProgress] = useState(0);
   const progressTimeoutRef = useRef(null);
+  const progressIntervalRef = useRef(null);
+  const carouselRef = useRef(null);
   
-  // Handle mouse movement for tilt effect
+  // Check if device is mobile
   useEffect(() => {
-    const handleMouseMove = (e) => {
-      setMousePosition({
-        x: (e.clientX / window.innerWidth) - 0.5,
-        y: (e.clientY / window.innerHeight) - 0.5
-      });
+    const checkMobile = () => {
+      const isMobileView = window.innerWidth < 768;
+      // Adjust layout or behavior based on mobile view if needed
+      if (isMobileView && !showAll) {
+        // Mobile-specific adjustments can go here
+      }
     };
     
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, [showAll]);
   
-  // Auto-rotate projects
+  // Auto-rotate projects only in featured mode
   useEffect(() => {
+    if (showAll) return;
+    
+    const resetProgressAnimation = () => {
+      // Clear previous interval if it exists
+      if (progressIntervalRef.current) {
+        clearInterval(progressIntervalRef.current);
+      }
+      
+      // Reset progress to 0
+      setProgress(0);
+      
+      // Start a new progress animation
+      const startTime = Date.now();
+      const duration = 6000; // 6 seconds
+      
+      progressIntervalRef.current = setInterval(() => {
+        const elapsed = Date.now() - startTime;
+        const newProgress = Math.min(100, (elapsed / duration) * 100);
+        setProgress(newProgress);
+        
+        if (newProgress >= 100) {
+          clearInterval(progressIntervalRef.current);
+        }
+      }, 16); // ~60fps
+    };
+    
     const resetProgressTimeout = () => {
       if (progressTimeoutRef.current) {
         clearTimeout(progressTimeoutRef.current);
       }
+      
+      // Reset and start progress animation
+      resetProgressAnimation();
       
       progressTimeoutRef.current = setTimeout(() => {
         if (!isAnimating) {
@@ -47,75 +91,45 @@ const Projects = () => {
       if (progressTimeoutRef.current) {
         clearTimeout(progressTimeoutRef.current);
       }
+      if (progressIntervalRef.current) {
+        clearInterval(progressIntervalRef.current);
+      }
     };
-  }, [isAnimating, activeProject]);
+  }, [isAnimating, activeProject, showAll]);
   
   const projects = [
     {
       id: 1,
-      title: 'E-Commerce Platform',
-      description: 'A full-featured e-commerce website with user authentication, product catalog, cart functionality, and payment processing.',
-      technologies: ['React', 'Node.js', 'MongoDB', 'Express', 'Redux', 'Stripe'],
-      image: 'https://picsum.photos/id/1/600/400',
-      githubUrl: 'https://github.com',
-      liveUrl: 'https://example.com',
-      category: 'Full Stack',
-      icon: faLaptopCode
+      title: 'Lucky Shrub',
+      description: 'A website for a garden design, creation, maintenance, and landscaping company based in Tucson, Arizona. Features an elegant layout with subtle animations that enhance the user experience.',
+      technologies: ['HTML', 'CSS', 'JavaScript', 'Responsive Design', 'Animation'],
+      image: luckyShrubImage,
+      githubUrl: 'https://github.com/imDevInderSharma/Lucky-Shrub',
+      liveUrl: 'https://imdevindersharma.github.io/Lucky-Shrub/',
+      category: 'Frontend',
+      icon: faLeaf
     },
     {
       id: 2,
-      title: 'Task Management App',
-      description: 'A sleek task management application with drag-and-drop functionality, team collaboration features, and real-time updates.',
-      technologies: ['React', 'Firebase', 'Material UI', 'React DnD', 'Redux'],
-      image: 'https://picsum.photos/id/2/600/400',
-      githubUrl: 'https://github.com',
-      liveUrl: 'https://example.com',
+      title: 'Table Booking',
+      description: 'A simple website for "Little Lemon" restaurant with integrated table booking functionality. Allows users to view restaurant information and reserve tables.',
+      technologies: ['React', 'JavaScript', 'CSS', 'Responsive Design'],
+      image: tableBookingImage,
+      githubUrl: 'https://github.com/imDevInderSharma/table-booking',
+      liveUrl: 'https://table-booking-flax.vercel.app/',
       category: 'Frontend',
-      icon: faCode
+      icon: faUtensils
     },
     {
       id: 3,
-      title: 'AI Image Generator',
-      description: 'An application that uses AI to generate unique images based on text descriptions provided by users.',
-      technologies: ['Next.js', 'OpenAI API', 'TailwindCSS', 'TypeScript'],
-      image: 'https://picsum.photos/id/3/600/400',
-      githubUrl: 'https://github.com',
-      liveUrl: 'https://example.com', 
-      category: 'AI/ML',
-      icon: faLaptopCode
-    },
-    {
-      id: 4,
-      title: 'Weather Dashboard',
-      description: 'A real-time weather application that provides detailed forecasts, radar maps, and weather alerts for locations worldwide.',
-      technologies: ['React', 'Weather API', 'Chart.js', 'Styled Components'],
-      image: 'https://picsum.photos/id/4/600/400',
-      githubUrl: 'https://github.com',
-      liveUrl: 'https://example.com',
+      title: 'Bio Page',
+      description: 'A simple personal bio page showcasing favorite music artists, films, and other personal information in a clean, minimalist design.',
+      technologies: ['HTML', 'CSS', 'Responsive Design'],
+      image: bioPageImage,
+      githubUrl: 'https://github.com/imDevInderSharma/Bio-Page',
+      liveUrl: 'https://imdevindersharma.github.io/Bio-Page/',
       category: 'Frontend',
-      icon: faCode
-    },
-    {
-      id: 5,
-      title: 'Social Media Platform',
-      description: 'A social networking application with features for creating posts, following users, direct messaging, and content discovery.',
-      technologies: ['React', 'Node.js', 'Socket.io', 'PostgreSQL', 'AWS S3'],
-      image: 'https://picsum.photos/id/5/600/400',
-      githubUrl: 'https://github.com',
-      liveUrl: 'https://example.com',
-      category: 'Full Stack',
-      icon: faLaptopCode
-    },
-    {
-      id: 6,
-      title: 'Finance Tracker',
-      description: 'A personal finance management tool that helps users track expenses, set budgets, and visualize spending patterns.',
-      technologies: ['React', 'D3.js', 'Firebase', 'PWA', 'IndexedDB'],
-      image: 'https://picsum.photos/id/6/600/400',
-      githubUrl: 'https://github.com',
-      liveUrl: 'https://example.com',
-      category: 'Frontend',
-      icon: faCode
+      icon: faUser
     },
   ];
   
@@ -134,475 +148,532 @@ const Projects = () => {
     // Reset animation state after transition
     setTimeout(() => {
       setIsAnimating(false);
-    }, 600);
+    }, 500);
     
     // Reset auto-rotate timer when manually navigating
     if (progressTimeoutRef.current) {
       clearTimeout(progressTimeoutRef.current);
-      progressTimeoutRef.current = setTimeout(() => {
-        if (!isAnimating) {
-          setDirection('next');
-          setActiveProject((prev) => (prev === projects.length - 1 ? 0 : prev + 1));
-        }
-      }, 6000);
     }
+    if (progressIntervalRef.current) {
+      clearInterval(progressIntervalRef.current);
+    }
+    
+    // Reset progress to 0
+    setProgress(0);
+    
+    // Start new progress animation and timer
+    const startTime = Date.now();
+    const duration = 6000; // 6 seconds
+    
+    progressIntervalRef.current = setInterval(() => {
+      const elapsed = Date.now() - startTime;
+      const newProgress = Math.min(100, (elapsed / duration) * 100);
+      setProgress(newProgress);
+      
+      if (newProgress >= 100) {
+        clearInterval(progressIntervalRef.current);
+      }
+    }, 16); // ~60fps
+    
+    progressTimeoutRef.current = setTimeout(() => {
+      if (!isAnimating && !showAll) {
+        setDirection('next');
+        setActiveProject((prev) => (prev === projects.length - 1 ? 0 : prev + 1));
+      }
+    }, 6000);
   };
   
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
+  // Calculate circle properties for progress indicators
+  const calculateCircleProps = (index) => {
+    const size = 18; // Size of the circle
+    const strokeWidth = 2; // Width of the stroke
+    const radius = (size - strokeWidth) / 2;
+    const circumference = 2 * Math.PI * radius;
+    
+    // If this is the active project, use the progress value
+    // Otherwise, use 0 for inactive projects
+    const progressValue = index === activeProject ? progress : 0;
+    
+    // Calculate the stroke-dashoffset based on progress
+    const offset = circumference - (progressValue / 100) * circumference;
+    
+    return {
+      size,
+      strokeWidth,
+      radius,
+      circumference,
+      offset
+    };
+  };
+  
+  // Variants for animations
+  const fadeInUpVariant = {
+    hidden: { opacity: 0, y: 20 },
+    visible: (i = 0) => ({
       opacity: 1,
+      y: 0,
       transition: {
-        staggerChildren: 0.2,
-      },
-    },
+        delay: i * 0.1,
+        duration: 0.5,
+        ease: [0.16, 1, 0.3, 1]
+      }
+    })
   };
   
   const cardVariants = {
-    hidden: { y: 30, opacity: 0 },
-    visible: {
-      y: 0,
+    hidden: { opacity: 0, y: 20 },
+    visible: (i = 0) => ({
       opacity: 1,
+      y: 0,
       transition: {
-        type: 'spring',
-        stiffness: 100,
-        damping: 12,
-      },
-    },
+        delay: i * 0.05,
+        duration: 0.4,
+        ease: [0.16, 1, 0.3, 1]
+      }
+    }),
+    hover: {
+      y: -10,
+      transition: {
+        duration: 0.3,
+        ease: [0.16, 1, 0.3, 1]
+      }
+    }
   };
-
+  
   const sliderVariants = {
     enter: (direction) => ({
-      x: direction === 'next' ? 500 : -500,
+      x: direction === 'next' ? 100 : -100,
       opacity: 0,
-      scale: 0.85,
-      rotateY: direction === 'next' ? -15 : 15,
+      scale: 0.98,
     }),
     center: {
       x: 0,
       opacity: 1,
       scale: 1,
-      rotateY: 0,
       transition: {
-        duration: 0.5,
-        ease: [0.22, 1, 0.36, 1]
+        duration: 0.4,
+        ease: [0.16, 1, 0.3, 1]
       }
     },
     exit: (direction) => ({
-      x: direction === 'next' ? -500 : 500,
+      x: direction === 'next' ? -100 : 100,
       opacity: 0,
-      scale: 0.85,
-      rotateY: direction === 'next' ? 15 : -15,
+      scale: 0.98,
       transition: {
-        duration: 0.5,
-        ease: [0.22, 1, 0.36, 1]
+        duration: 0.4,
+        ease: [0.16, 1, 0.3, 1]
       }
     })
   };
-
-  // Calculate tilt effect based on mouse position
-  const calcTiltX = useSpring(useTransform(
-    useMotionValue(mousePosition.x),
-    [-0.5, 0.5],
-    [-10, 10]
-  ));
-  
-  const calcTiltY = useSpring(useTransform(
-    useMotionValue(mousePosition.y),
-    [-0.5, 0.5],
-    [10, -10]
-  ));
   
   return (
-    <section id="projects" className="projects section">
+    <section id="projects" className="projects-section">
       <div className="container">
         <motion.div
           className="section-header"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          variants={fadeInUpVariant}
         >
-          <h2 className="section-title">My Projects</h2>
-          <div className="section-subtitle">Check out my latest work</div>
-          <div className="section-line"></div>
+          <h2 className="section-title">Projects</h2>
+          <p className="section-subtitle">Recent work I've built</p>
+          <div className="section-divider"></div>
         </motion.div>
         
-        <div className="projects-showcase">
-          <motion.div 
-            className="featured-project"
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            style={{
-              perspective: 1000
-            }}
+        <div className="projects-view-toggle">
+          <motion.button
+            className={`view-toggle-btn ${!showAll ? 'active' : ''}`}
+            onClick={() => setShowAll(false)}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.98 }}
           >
-            {/* Progress bar */}
-            <motion.div 
-              className="projects-progress-container"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-            >
-              <div className="projects-progress-track">
-                {projects.map((_, index) => (
-                  <motion.button
-                    key={index}
-                    className={`progress-item-btn ${index === activeProject ? 'active' : ''}`}
-                    onClick={() => {
-                      if (isAnimating) return;
-                      const newDirection = index > activeProject ? 'next' : 'prev';
-                      setDirection(newDirection);
-                      setActiveProject(index);
-                      setIsAnimating(true);
-                      setTimeout(() => {
-                        setIsAnimating(false);
-                      }, 600);
-                      
-                      // Reset auto-rotate timer when manually selecting
-                      if (progressTimeoutRef.current) {
-                        clearTimeout(progressTimeoutRef.current);
-                        progressTimeoutRef.current = setTimeout(() => {
-                          if (!isAnimating) {
-                            setDirection('next');
-                            setActiveProject((prev) => (prev === projects.length - 1 ? 0 : prev + 1));
-                          }
-                        }, 6000);
-                      }
-                    }}
-                  >
-                    <motion.div 
-                      className="progress-item"
-                      initial={false}
-                      animate={{
-                        width: index === activeProject ? '100%' : '0%',
-                        backgroundColor: index === activeProject ? 'var(--primary)' : 'var(--border)'
-                      }}
-                      transition={{
-                        duration: index === activeProject ? 6 : 0.3,
-                        ease: 'linear'
-                      }}
-                    />
-                    <motion.div 
-                      className="progress-icon"
-                      initial={false}
-                      animate={{
-                        backgroundColor: index === activeProject ? 'var(--primary)' : 'var(--glass-background)',
-                        scale: index === activeProject ? 1.1 : 1,
-                        boxShadow: index === activeProject ? '0 0 15px rgba(157, 78, 221, 0.5)' : 'none'
-                      }}
-                      whileHover={{
-                        scale: 1.2,
-                        backgroundColor: 'var(--primary-light)'
-                      }}
-                    >
-                      <FontAwesomeIcon icon={projects[index].icon} />
-                    </motion.div>
-                  </motion.button>
-                ))}
-              </div>
-            </motion.div>
-            
-            <div className="featured-controls">
-              <motion.button 
-                className="nav-button prev"
+            Featured
+          </motion.button>
+          <motion.button
+            className={`view-toggle-btn ${showAll ? 'active' : ''}`}
+            onClick={() => setShowAll(true)}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            All Projects
+          </motion.button>
+        </div>
+
+        {/* Featured Project View */}
+        {!showAll && (
+          <div className="featured-project-container" ref={carouselRef}>
+            <div className="featured-navigation">
+              <motion.button
+                className="nav-arrow prev"
                 onClick={() => navigateProjects('prev')}
-                whileHover={{ x: -5, backgroundColor: 'var(--primary)', color: 'white' }}
-                whileTap={{ scale: 0.9 }}
+                whileHover={{ 
+                  scale: 1.1,
+                  backgroundColor: 'var(--primary)',
+                  color: 'white',
+                }}
+                whileTap={{ scale: 0.95 }}
                 disabled={isAnimating}
+                aria-label="Previous project"
               >
-                <FontAwesomeIcon icon={faArrowLeft} />
+                <FontAwesomeIcon icon={faChevronLeft} />
               </motion.button>
               
-              <motion.button 
-                className="nav-button next"
+              <div className="project-indicators">
+                {projects.map((_, index) => {
+                  const { size, strokeWidth, radius, circumference, offset } = calculateCircleProps(index);
+                  return (
+                    <motion.div
+                      key={index}
+                      className={`indicator-container ${index === activeProject ? 'active' : ''}`}
+                      onClick={() => {
+                        if (isAnimating) return;
+                        const newDirection = index > activeProject ? 'next' : 'prev';
+                        setDirection(newDirection);
+                        setActiveProject(index);
+                      }}
+                      whileHover={{ scale: 1.2 }}
+                      style={{ 
+                        width: size, 
+                        height: size, 
+                        position: 'relative',
+                        margin: '0 6px',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                      }}
+                    >
+                      {/* Background circle */}
+                      <svg
+                        width={size}
+                        height={size}
+                        style={{ 
+                          position: 'absolute', 
+                          transform: 'rotate(-90deg)',
+                          top: 0,
+                          left: 0
+                        }}
+                      >
+                        <circle
+                          cx={size / 2}
+                          cy={size / 2}
+                          r={radius}
+                          fill="transparent"
+                          stroke="rgba(255, 255, 255, 0.2)"
+                          strokeWidth={strokeWidth}
+                        />
+                      </svg>
+                      
+                      {/* Progress circle */}
+                      <svg
+                        width={size}
+                        height={size}
+                        style={{ 
+                          position: 'absolute', 
+                          transform: 'rotate(-90deg)',
+                          top: 0,
+                          left: 0
+                        }}
+                      >
+                        <circle
+                          cx={size / 2}
+                          cy={size / 2}
+                          r={radius}
+                          fill="transparent"
+                          stroke="var(--primary)"
+                          strokeWidth={strokeWidth}
+                          strokeDasharray={circumference}
+                          strokeDashoffset={offset}
+                          strokeLinecap="round"
+                        />
+                      </svg>
+                      
+                      {/* Inner dot for active indicator */}
+                      {index === activeProject && (
+                        <motion.div
+                          className="indicator-dot"
+                          style={{
+                            position: 'absolute',
+                            width: size / 3,
+                            height: size / 3,
+                            borderRadius: '50%',
+                            backgroundColor: 'var(--primary)',
+                            zIndex: 2
+                          }}
+                          initial={{ scale: 0 }}
+                          animate={{ scale: 1 }}
+                          transition={{ duration: 0.3 }}
+                        />
+                      )}
+                    </motion.div>
+                  );
+                })}
+              </div>
+              
+              <motion.button
+                className="nav-arrow next"
                 onClick={() => navigateProjects('next')}
-                whileHover={{ x: 5, backgroundColor: 'var(--primary)', color: 'white' }}
-                whileTap={{ scale: 0.9 }}
+                whileHover={{ 
+                  scale: 1.1, 
+                  backgroundColor: 'var(--primary)',
+                  color: 'white',
+                }}
+                whileTap={{ scale: 0.95 }}
                 disabled={isAnimating}
+                aria-label="Next project"
               >
-                <FontAwesomeIcon icon={faArrowRight} />
+                <FontAwesomeIcon icon={faChevronRight} />
               </motion.button>
             </div>
             
-            <div className="featured-slider" style={{ perspective: 1000 }}>
+            <div className="featured-project-slide">
               <AnimatePresence mode="wait" custom={direction}>
-                <motion.div 
-                  className="featured-card glass-card"
+                <motion.div
                   key={activeProject}
+                  className="featured-project-card"
                   custom={direction}
                   variants={sliderVariants}
                   initial="enter"
                   animate="center"
                   exit="exit"
                   onAnimationComplete={() => setIsAnimating(false)}
-                  style={{
-                    rotateX: calcTiltY,
-                    rotateY: calcTiltX,
-                    transformStyle: 'preserve-3d'
-                  }}
                 >
-                  <div className="featured-image">
-                    <motion.img 
-                      src={projects[activeProject].image} 
-                      alt={projects[activeProject].title}
-                      whileHover={{ scale: 1.05 }}
-                      transition={{ duration: 0.3 }}
-                    />
-                    <motion.div 
-                      className="featured-category"
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.3 }}
-                    >
-                      {projects[activeProject].category}
-                    </motion.div>
-                  </div>
-                  
-                  <div className="featured-content">
-                    <motion.h3 
-                      className="featured-title"
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.1 }}
-                    >
-                      {projects[activeProject].title}
-                    </motion.h3>
-                    <motion.p 
-                      className="featured-description"
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.2 }}
-                    >
-                      {projects[activeProject].description}
-                    </motion.p>
+                  <div className="project-card-inner">
+                    <div className="project-image-container">
+                      <motion.img
+                        src={projects[activeProject].image}
+                        alt={projects[activeProject].title}
+                        className="project-image"
+                        initial={{ scale: 1 }}
+                        whileHover={{ scale: 1.05 }}
+                        transition={{ duration: 0.4 }}
+                        onError={(e) => {
+                          e.target.src = 'https://via.placeholder.com/800x500?text=Project+Image';
+                        }}
+                      />
+                      <motion.div 
+                        className="project-category"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.3 }}
+                      >
+                        <FontAwesomeIcon icon={projects[activeProject].icon} />
+                        <span>{projects[activeProject].category}</span>
+                      </motion.div>
+                    </div>
                     
-                    <motion.div 
-                      className="technologies"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ delay: 0.3 }}
-                    >
-                      {projects[activeProject].technologies.map((tech, idx) => (
-                        <motion.span 
-                          key={tech} 
-                          className="tech-tag"
-                          initial={{ opacity: 0, scale: 0.8 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{ duration: 0.3, delay: 0.2 + idx * 0.1 }}
+                    <div className="project-details">
+                      <motion.h3 
+                        className="project-title"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.1 }}
+                      >
+                        {projects[activeProject].title}
+                      </motion.h3>
+                      
+                      <motion.p 
+                        className="project-description"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.2 }}
+                      >
+                        {projects[activeProject].description}
+                      </motion.p>
+                      
+                      <motion.div 
+                        className="project-tech-stack"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.3 }}
+                      >
+                        {projects[activeProject].technologies.map((tech, idx) => (
+                          <motion.span 
+                            key={tech} 
+                            className="tech-badge"
+                            initial={{ opacity: 0, y: 5 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.2, delay: 0.3 + idx * 0.05 }}
+                            whileHover={{ 
+                              y: -2,
+                              backgroundColor: 'var(--primary)',
+                              color: 'white'
+                            }}
+                          >
+                            {tech}
+                          </motion.span>
+                        ))}
+                      </motion.div>
+                      
+                      <motion.div 
+                        className="project-links"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.4 }}
+                      >
+                        <motion.a 
+                          href={projects[activeProject].githubUrl} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="project-link github"
                           whileHover={{ 
-                            scale: 1.1, 
+                            y: -3,
+                            backgroundColor: '#24292e',
+                            color: 'white',
+                            boxShadow: '0 4px 10px rgba(0, 0, 0, 0.15)'
+                          }}
+                          whileTap={{ scale: 0.97 }}
+                        >
+                          <FontAwesomeIcon icon={faGithub} />
+                          <span>GitHub</span>
+                        </motion.a>
+                        
+                        <motion.a 
+                          href={projects[activeProject].liveUrl} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="project-link demo"
+                          whileHover={{ 
+                            y: -3,
                             backgroundColor: 'var(--primary)',
                             color: 'white',
-                            boxShadow: '0 5px 15px rgba(157, 78, 221, 0.3)'
+                            boxShadow: '0 4px 10px rgba(157, 78, 221, 0.2)'
                           }}
+                          whileTap={{ scale: 0.97 }}
                         >
-                          {tech}
-                        </motion.span>
-                      ))}
-                    </motion.div>
-                    
-                    <motion.div 
-                      className="featured-links"
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.4 }}
-                    >
-                      <motion.a 
-                        href={projects[activeProject].githubUrl} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="project-link github"
-                        whileHover={{ 
-                          y: -5, 
-                          boxShadow: '0 5px 15px rgba(0, 0, 0, 0.2)',
-                          backgroundColor: '#24292e',
-                          color: 'white'
-                        }}
-                        whileTap={{ scale: 0.95 }}
-                      >
-                        <FontAwesomeIcon icon={faGithub} />
-                        <span>Source Code</span>
-                      </motion.a>
-                      
-                      <motion.a 
-                        href={projects[activeProject].liveUrl} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="project-link live"
-                        whileHover={{ 
-                          y: -5, 
-                          boxShadow: '0 5px 15px rgba(157, 78, 221, 0.3)',
-                          backgroundColor: 'var(--primary)',
-                          color: 'white'
-                        }}
-                        whileTap={{ scale: 0.95 }}
-                      >
-                        <FontAwesomeIcon icon={faExternalLinkAlt} />
-                        <span>Live Demo</span>
-                      </motion.a>
-                    </motion.div>
+                          <FontAwesomeIcon icon={faExternalLinkAlt} />
+                          <span>Live Demo</span>
+                        </motion.a>
+                      </motion.div>
+                    </div>
                   </div>
                 </motion.div>
               </AnimatePresence>
             </div>
-          </motion.div>
-          
-          <motion.div
-            ref={ref}
-            className="project-grid"
-            variants={containerVariants}
+          </div>
+        )}
+        
+        {/* Grid View - All Projects */}
+        {showAll && (
+          <motion.div 
+            className="projects-grid"
             initial="hidden"
-            animate={controls}
+            animate="visible"
+            variants={fadeInUpVariant}
           >
             {projects.map((project, index) => (
               <motion.div
                 key={project.id}
-                className="project-card-wrapper"
+                className="grid-project-card"
+                custom={index}
                 variants={cardVariants}
-                whileHover={{ 
-                  z: 20,
-                  transition: { duration: 0.2 }
-                }}
+                whileHover="hover"
               >
-                <motion.div 
-                  className="project-card"
-                  whileHover={{
-                    rotateY: 180,
-                    transition: { duration: 0.6, ease: "easeOut" }
-                  }}
-                  style={{ transformStyle: "preserve-3d" }}
-                >
-                  <motion.div 
-                    className="card-front"
-                    style={{ backfaceVisibility: "hidden" }}
-                  >
-                    <div className="card-image">
-                      <motion.img 
-                        src={project.image} 
-                        alt={project.title}
-                        whileHover={{ scale: 1.1 }}
-                        transition={{ duration: 0.5 }}
-                      />
-                      <motion.div 
-                        className="image-overlay"
-                        initial={{ opacity: 0 }}
-                        whileHover={{ opacity: 1 }}
-                      >
-                        <motion.span 
-                          className="view-project"
-                          initial={{ y: 20, opacity: 0 }}
-                          whileHover={{ y: 0, opacity: 1 }}
-                          transition={{ delay: 0.1 }}
-                        >
-                          View Details 
-                          <FontAwesomeIcon icon={faArrowUpRightFromSquare} className="ms-2" />
-                        </motion.span>
-                      </motion.div>
-                    </div>
-                    <div className="card-content">
-                      <h3 className="card-title">{project.title}</h3>
-                      <div className="card-category">{project.category}</div>
-                    </div>
-                  </motion.div>
+                <div className="grid-card-inner">
+                  <div className="grid-image-container">
+                    <motion.img
+                      src={project.image}
+                      alt={project.title}
+                      className="grid-project-image"
+                      whileHover={{ scale: 1.08 }}
+                      transition={{ duration: 0.4 }}
+                      onError={(e) => {
+                        e.target.src = 'https://via.placeholder.com/400x250?text=Project+Image';
+                      }}
+                    />
+                    <motion.div className="grid-category-badge">
+                      <FontAwesomeIcon icon={project.icon} />
+                      <span>{project.category}</span>
+                    </motion.div>
+                  </div>
                   
-                  <motion.div 
-                    className="card-back glass-card"
-                    style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
-                  >
-                    <h3 className="card-title">{project.title}</h3>
-                    <p className="card-description">{project.description}</p>
+                  <div className="grid-project-details">
+                    <h3 className="grid-project-title">{project.title}</h3>
+                    <p className="grid-project-description">{project.description}</p>
                     
-                    <div className="card-technologies">
+                    <div className="grid-tech-stack">
                       {project.technologies.slice(0, 3).map((tech) => (
-                        <motion.span 
-                          key={tech} 
-                          className="tech-tag"
-                          whileHover={{ 
-                            scale: 1.1,
-                            backgroundColor: 'var(--primary)',
-                            color: 'white'
-                          }}
-                        >
+                        <span key={tech} className="grid-tech-badge">
                           {tech}
-                        </motion.span>
+                        </span>
                       ))}
                       {project.technologies.length > 3 && (
-                        <motion.span 
-                          className="tech-tag more"
-                          whileHover={{ scale: 1.1 }}
-                        >
+                        <span className="grid-tech-badge more">
                           +{project.technologies.length - 3}
-                        </motion.span>
+                        </span>
                       )}
                     </div>
                     
-                    <div className="card-links">
+                    <div className="grid-project-links">
                       <motion.a 
                         href={project.githubUrl} 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="card-link"
+                        className="grid-link github"
                         whileHover={{ 
-                          scale: 1.05, 
+                          y: -2,
                           backgroundColor: '#24292e',
-                          color: 'white'
+                          color: 'white' 
                         }}
-                        whileTap={{ scale: 0.95 }}
+                        whileTap={{ scale: 0.97 }}
                       >
                         <FontAwesomeIcon icon={faGithub} />
-                        <span>GitHub</span>
                       </motion.a>
                       
                       <motion.a 
                         href={project.liveUrl} 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="card-link"
+                        className="grid-link demo"
                         whileHover={{ 
-                          scale: 1.05,
+                          y: -2,
                           backgroundColor: 'var(--primary)',
-                          color: 'white'
+                          color: 'white' 
                         }}
-                        whileTap={{ scale: 0.95 }}
+                        whileTap={{ scale: 0.97 }}
                       >
                         <FontAwesomeIcon icon={faExternalLinkAlt} />
-                        <span>Live</span>
                       </motion.a>
                     </div>
-                  </motion.div>
-                </motion.div>
+                  </div>
+                </div>
               </motion.div>
             ))}
           </motion.div>
-          
-          {/* Project background decoration */}
-          <div className="projects-decoration">
-            <motion.div 
-              className="proj-deco proj-deco-1"
-              animate={{
-                y: [0, -30, 0],
-                opacity: [0.2, 0.3, 0.2],
-                rotate: [0, 180, 360]
-              }}
-              transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-            />
-            <motion.div 
-              className="proj-deco proj-deco-2"
-              animate={{
-                x: [0, 50, 0],
-                opacity: [0.1, 0.2, 0.1],
-                rotate: [0, -180, -360]
-              }}
-              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-            />
-          </div>
+        )}
+        
+        {/* Background decorations */}
+        <div className="projects-decoration">
+          <motion.div 
+            className="decoration-element element-1"
+            animate={{
+              y: [0, -20, 0],
+              opacity: [0.15, 0.2, 0.15],
+              rotate: [0, 180, 360]
+            }}
+            transition={{ 
+              duration: 20, 
+              repeat: Infinity, 
+              ease: "linear" 
+            }}
+          />
+          <motion.div 
+            className="decoration-element element-2"
+            animate={{
+              x: [0, 30, 0],
+              opacity: [0.1, 0.15, 0.1],
+              rotate: [0, -180, -360]
+            }}
+            transition={{ 
+              duration: 25, 
+              repeat: Infinity, 
+              ease: "linear" 
+            }}
+          />
         </div>
       </div>
     </section>
   );
 };
 
-export default Projects; 
+export default Projects;

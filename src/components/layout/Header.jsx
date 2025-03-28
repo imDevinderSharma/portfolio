@@ -287,25 +287,6 @@ const Header = () => {
               }}
               onPointerDown={startDrag}
             >
-              <div className="mobile-menu-swipe-hint">
-                <motion.div 
-                  className="swipe-indicator"
-                  initial={{ opacity: 0.5 }}
-                  animate={{ 
-                    opacity: [0.5, 0.8, 0.5],
-                    x: [0, 10, 0] 
-                  }}
-                  transition={{ 
-                    duration: 2,
-                    repeat: Infinity,
-                    repeatType: "reverse"
-                  }}
-                >
-                  <FontAwesomeIcon icon={faArrowRight} />
-                  <span>Swipe to close</span>
-                </motion.div>
-              </div>
-              
               <div className="mobile-menu-content">
                 <motion.div 
                   className="mobile-menu-header"
@@ -346,6 +327,28 @@ const Header = () => {
                     ))}
                   </ul>
                 </nav>
+                
+                <motion.div 
+                  className="mobile-menu-swipe-hint"
+                  variants={menuItemVariants}
+                >
+                  <motion.div 
+                    className="swipe-indicator"
+                    initial={{ opacity: 0.5 }}
+                    animate={{ 
+                      opacity: [0.5, 0.8, 0.5],
+                      x: [0, 10, 0] 
+                    }}
+                    transition={{ 
+                      duration: 2,
+                      repeat: Infinity,
+                      repeatType: "reverse"
+                    }}
+                  >
+                    <FontAwesomeIcon icon={faArrowRight} />
+                    <span>Swipe to close</span>
+                  </motion.div>
+                </motion.div>
                 
                 <motion.div 
                   className="mobile-menu-footer"

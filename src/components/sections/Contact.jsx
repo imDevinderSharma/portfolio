@@ -1,9 +1,10 @@
 import { useState, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useAnimateOnScroll } from '../../hooks/useAnimateOnScroll';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faPhone, faMapMarkerAlt, faCheck, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
-import { faLinkedin, faGithub, faTwitter } from '@fortawesome/free-brands-svg-icons';
+import { faLinkedin, faGithub, faInstagram } from '@fortawesome/free-brands-svg-icons';
 
 const Contact = () => {
   const { ref, controls } = useAnimateOnScroll();
@@ -125,27 +126,27 @@ const Contact = () => {
     {
       icon: faEnvelope,
       title: 'Email',
-      value: 'devinder@example.com',
-      link: 'mailto:devinder@example.com',
+      value: 'iamDevinderSharma15122005@gmail.com',
+      link: 'mailto:iamDevinderSharma15122005@gmail.com',
     },
     {
       icon: faPhone,
       title: 'Phone',
-      value: '+1 (555) 123-4567',
-      link: 'tel:+15551234567',
+      value: '+91 63987 95334',
+      link: 'tel:+916398795334',
     },
     {
       icon: faMapMarkerAlt,
       title: 'Location',
-      value: 'New York, NY',
-      link: 'https://maps.google.com/?q=New+York',
+      value: 'Haryana, India',
+      link: 'https://maps.google.com/?q=Haryana,India',
     },
   ];
   
   const socialLinks = [
-    { name: 'LinkedIn', icon: faLinkedin, url: 'https://linkedin.com' },
-    { name: 'GitHub', icon: faGithub, url: 'https://github.com' },
-    { name: 'Twitter', icon: faTwitter, url: 'https://twitter.com' },
+    { name: 'LinkedIn', icon: faLinkedin, url: 'https://www.linkedin.com/in/imdevindersharma/' },
+    { name: 'GitHub', icon: faGithub, url: 'https://github.com/imDevinderSharma' },
+    { name: 'Instagram', icon: faInstagram, url: 'https://www.instagram.com/imdevindersharma/' },
   ];
   
   return (
@@ -181,14 +182,15 @@ const Contact = () => {
             </motion.div>
             
             <div className="info-items">
-              {contactInfo.map((item, index) => (
+              {contactInfo.map((item) => (
                 <motion.div 
                   key={item.title} 
                   className="info-item glass-card"
                   variants={itemVariants}
                   whileHover={{ 
-                    y: -5,
-                    boxShadow: '0 10px 25px rgba(0, 0, 0, 0.1)',
+                    cursor: 'pointer',
+                    boxShadow: '0 6px 15px rgba(0, 0, 0, 0.06)',
+                    transition: { duration: 0.3, ease: 'easeOut' }
                   }}
                 >
                   <div className="info-icon">

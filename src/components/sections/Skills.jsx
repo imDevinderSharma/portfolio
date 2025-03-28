@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAnimateOnScroll } from '../../hooks/useAnimateOnScroll';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,9 +8,7 @@ import {
   faHtml5, 
   faCss3Alt, 
   faNode, 
-  faGit, 
-  faAws, 
-  faPython 
+  faGit
 } from '@fortawesome/free-brands-svg-icons';
 import { 
   faDatabase, 
@@ -19,15 +17,17 @@ import {
   faDesktop, 
   faLaptopCode, 
   faCode, 
-  faLock, 
-  faGraduationCap,
   faBrain, 
-  faChartLine, 
-  faNetworkWired
+  faExternalLinkAlt
 } from '@fortawesome/free-solid-svg-icons';
+// Import logo images
+import metaLogo from '../../assets/meta-logo.png';
+import harvardLogo from '../../assets/harvard-logo.png';
+import odinLogo from '../../assets/odin-logo.png';
+import freeCodeCampLogo from '../../assets/freecodecamp-logo.jpg';
 
 const Skills = () => {
-  const { ref, controls } = useAnimateOnScroll(0.1);
+  const { ref } = useAnimateOnScroll(0.1);
   const [activeCategory, setActiveCategory] = useState('frontend');
   const [isChangingCategory, setIsChangingCategory] = useState(false);
   
@@ -114,22 +114,37 @@ const Skills = () => {
       program: 'Meta Front-End Developer Professional Certificate',
       institution: 'Meta',
       logo: 'meta-logo',
-      year: '2023',
-      skills: ['React', 'JavaScript', 'HTML5', 'CSS3', 'Responsive Design']
+      logoImage: metaLogo,
+      year: '2025',
+      skills: ['React', 'JavaScript', 'HTML5', 'CSS3', 'Responsive Design'],
+      certificateLink: 'https://www.coursera.org/account/accomplishments/specialization/OES0XI9V91J2'
     },
     {
-      program: 'CS50: Introduction to Computer Science',
+      program: 'Legacy JavaScript Algorithms and Data Structures',
+      institution: 'freeCodeCamp',
+      logo: 'freecodecamp-logo',
+      logoImage: freeCodeCampLogo,
+      year: '2023',
+      skills: ['JavaScript', 'Algorithms', 'Data Structures', 'ES6', 'OOP'],
+      certificateLink: 'https://www.freecodecamp.org/certification/iamDevinderSharma/javascript-algorithms-and-data-structures'
+    },
+    {
+      program: 'CS50x: Introduction to Computer Science',
       institution: 'Harvard University',
       logo: 'harvard-logo',
-      year: '2022',
-      skills: ['C', 'Python', 'SQL', 'Data Structures', 'Algorithms', 'Web Security']
+      logoImage: harvardLogo,
+      year: '2024',
+      skills: ['C', 'Python', 'SQL', 'Data Structures', 'Algorithms', 'Web Security'],
+      certificateLink: 'https://certificates.cs50.io/7608b192-9e56-4504-99b4-21cabae8e936.pdf?size=letter'
     },
     {
       program: 'Full Stack JavaScript',
       institution: 'The Odin Project',
       logo: 'odin-logo',
-      year: '2021',
-      skills: ['JavaScript', 'Node.js', 'React', 'MongoDB', 'Express']
+      logoImage: odinLogo,
+      year: '2025',
+      skills: ['JavaScript', 'Node.js', 'React', 'SQL', 'Express'],
+      projectLink: true
     },
   ];
   
@@ -247,7 +262,18 @@ const Skills = () => {
                 }}
               >
                 <div className={`education-logo-placeholder ${item.logo}`}>
-                  <span>{item.institution.charAt(0)}</span>
+                  <img 
+                    src={item.logoImage} 
+                    alt={`${item.institution} logo`} 
+                    style={{ 
+                      width: '100%', 
+                      height: '100%', 
+                      borderRadius: '50%', 
+                      objectFit: 'contain', 
+                      padding: '10px',
+                      backgroundColor: item.institution === 'Meta' ? 'white' : 'transparent'
+                    }} 
+                  />
                 </div>
                 <div className="education-details">
                   <h4 className="education-program">{item.program}</h4>
@@ -259,6 +285,27 @@ const Skills = () => {
                     ))}
                     {item.skills.length > 3 && (
                       <span className="education-skill-tag more">+{item.skills.length - 3} more</span>
+                    )}
+                  </div>
+                  <div className="education-links">
+                    {item.certificateLink && (
+                      <a 
+                        href={item.certificateLink} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="certificate-btn"
+                      >
+                        <FontAwesomeIcon icon={faExternalLinkAlt} /> Certificate
+                      </a>
+                    )}
+                    {item.projectLink && (
+                      <a 
+                        href="#" 
+                        className="project-btn"
+                        onClick={(e) => e.preventDefault()}
+                      >
+                        <FontAwesomeIcon icon={faExternalLinkAlt} /> Project
+                      </a>
                     )}
                   </div>
                 </div>
