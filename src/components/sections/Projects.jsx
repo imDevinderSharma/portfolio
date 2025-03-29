@@ -359,7 +359,7 @@ const Projects = () => {
                           cy={size / 2}
                           r={radius}
                           fill="transparent"
-                          stroke="rgba(255, 255, 255, 0.2)"
+                          stroke={document.body.dataset.theme === 'light' ? 'rgba(0, 0, 0, 0.4)' : 'rgba(255, 255, 255, 0.2)'}
                           strokeWidth={strokeWidth}
                         />
                       </svg>
