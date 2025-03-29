@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import Header from './Header';
 import Footer from './Footer';
+import BackToTop from './BackToTop';
 import { useTheme } from '../../hooks/useTheme';
 
 const Layout = ({ children }) => {
@@ -16,6 +17,7 @@ const Layout = ({ children }) => {
       <Header />
       <main className="main">{children}</main>
       <Footer />
+      <BackToTop />
     </div>
   );
 };

@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub, faLinkedin, faInstagram } from '@fortawesome/free-brands-svg-icons';
-import { faHeart, faEnvelope, faPhone, faMapMarkerAlt, faArrowUp } from '@fortawesome/free-solid-svg-icons';
+import { faHeart, faEnvelope, faPhone, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -154,23 +154,6 @@ const Footer = () => {
               </motion.span>{' '}
               using React & Framer Motion
             </p>
-          </div>
-          <div className="back-to-top">
-            <motion.a
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                window.scrollTo({
-                  top: 0,
-                  behavior: 'smooth'
-                });
-              }}
-              className="top-btn"
-              whileHover={{ y: -5 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              <FontAwesomeIcon icon={faArrowUp} />
-            </motion.a>
           </div>
         </motion.div>
       </div>
