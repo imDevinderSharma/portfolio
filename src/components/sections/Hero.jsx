@@ -104,7 +104,7 @@ const Hero = () => {
     
     // Optimize for mobile devices
     // Reduce particle count on mobile/touch devices
-    const particlesCount = isTouchDevice ? 1000 : 2000;
+    const particlesCount = isTouchDevice ? 500 : 2000;
     const positions = new Float32Array(particlesCount * 3);
     const colors = new Float32Array(particlesCount * 3);
     const particleSizes = new Float32Array(particlesCount);
@@ -444,8 +444,8 @@ const Hero = () => {
     >
       <canvas ref={canvasRef} className="hero-canvas" />
       
-      {/* Floating tech icons - only visible on non-touch devices */}
-      {!isTouchDevice && techIcons.map((icon, index) => (
+      {/* Floating tech icons - visible on all devices */}
+      {techIcons.map((icon, index) => (
         <motion.div
           key={index}
           className="floating-tech-icon"

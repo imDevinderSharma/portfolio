@@ -468,8 +468,8 @@
   height: 36px;
   border-radius: 50%;
   margin-right: 12px;
-  background-color: var(--primary);
-  color: white;
+  background-color: rgba(157, 78, 221, 0.1);
+  color: var(--primary);
   transition: all 0.3s ease;
   flex-shrink: 0;
 }
@@ -477,8 +477,7 @@
 .footer-info-item:hover .footer-icon-wrapper {
   background-color: var(--primary);
   color: white;
-  transform: scale(1.2);
-  box-shadow: 0 5px 15px rgba(157, 78, 221, 0.5);
+  transform: scale(1.1);
 }
 
 .footer-contact-icon {
@@ -633,4 +632,4 @@
     padding: 6px 12px;
     font-size: 0.8rem;
   }
-}
+} 
