@@ -442,6 +442,14 @@ const Hero = () => {
     }
   };
   
+  // Add touch event handler for mobile devices
+  const handleTouchStart = (targetId) => {
+    const targetElement = document.getElementById(targetId);
+    if (targetElement) {
+      targetElement.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+  
   return (
     <motion.section 
       className="hero"
@@ -635,6 +643,7 @@ const Hero = () => {
               href="#projects" 
               className="button primary-button"
               onClick={(e) => handleSmoothScroll(e, 'projects')}
+              onTouchStart={() => handleTouchStart('projects')}
               whileHover={{ 
                 scale: isTouchDevice ? 1.02 : 1.05, 
                 boxShadow: "0 10px 25px rgba(157, 78, 221, 0.4)",
@@ -673,6 +682,7 @@ const Hero = () => {
               href="#contact" 
               className="button secondary-button"
               onClick={(e) => handleSmoothScroll(e, 'contact')}
+              onTouchStart={() => handleTouchStart('contact')}
               whileHover={{ 
                 scale: isTouchDevice ? 1.02 : 1.05, 
                 boxShadow: "0 10px 25px rgba(157, 78, 221, 0.2)"
@@ -690,6 +700,7 @@ const Hero = () => {
         href="#about" 
         className="scroll-down"
         onClick={(e) => handleSmoothScroll(e, 'about')}
+        onTouchStart={() => handleTouchStart('about')}
         initial={{ opacity: 0, y: -20 }}
         animate={{ 
           opacity: [0.4, 1, 0.4], 

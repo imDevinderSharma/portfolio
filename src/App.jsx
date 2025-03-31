@@ -34,8 +34,31 @@ function App() {
       }
     }
     
+    // Add touch event handler for mobile devices
+    const handleTouchStart = (e) => {
+      const target = e.target.closest('a[href^="#"]')
+      if (!target) return
+      
+      const id = target.getAttribute('href')
+      if (!id || id === '#') return
+      
+      const element = document.querySelector(id)
+      if (element) {
+        e.preventDefault()
+        element.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+        })
+      }
+    }
+    
     document.addEventListener('click', handleAnchorClick)
-    return () => document.removeEventListener('click', handleAnchorClick)
+    document.addEventListener('touchstart', handleTouchStart)
+    
+    return () => {
+      document.removeEventListener('click', handleAnchorClick)
+      document.removeEventListener('touchstart', handleTouchStart)
+    }
   }, [])
 
   return (

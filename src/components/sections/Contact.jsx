@@ -103,6 +103,18 @@ const Contact = () => {
     return 'form-input';
   };
   
+  // Add touch event handler for mobile devices
+  const handleTouchStart = (url) => {
+    window.location.href = url;
+  };
+  
+  // Touch event handler for form submission
+  const handleFormTouchStart = (e) => {
+    if (!formStatus.submitted || formStatus.success) {
+      handleSubmit(e);
+    }
+  };
+  
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -203,6 +215,7 @@ const Contact = () => {
                       className="info-value"
                       target={item.title === 'Location' ? '_blank' : ''}
                       rel={item.title === 'Location' ? 'noopener noreferrer' : ''}
+                      onTouchStart={() => handleTouchStart(item.link)}
                     >
                       {item.value}
                     </a>
@@ -222,6 +235,7 @@ const Contact = () => {
                     rel="noopener noreferrer"
                     aria-label={link.name}
                     className="social-link"
+                    onTouchStart={() => handleTouchStart(link.url)}
                     whileHover={{ y: -5, scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -371,6 +385,7 @@ const Contact = () => {
                   type="submit"
                   className="submit-button"
                   disabled={formStatus.submitted && !formStatus.success}
+                  onTouchStart={handleFormTouchStart}
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.98 }}
                 >
