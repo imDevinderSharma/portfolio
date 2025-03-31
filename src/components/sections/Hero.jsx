@@ -433,6 +433,15 @@ const Hero = () => {
   const nameText = "Devinder";
   const nameArray = nameText.split("");
   
+  // Add this function to handle smooth scrolling
+  const handleSmoothScroll = (e, targetId) => {
+    e.preventDefault();
+    const targetElement = document.getElementById(targetId);
+    if (targetElement) {
+      targetElement.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+  
   return (
     <motion.section 
       className="hero"
@@ -625,6 +634,7 @@ const Hero = () => {
             <motion.a 
               href="#projects" 
               className="button primary-button"
+              onClick={(e) => handleSmoothScroll(e, 'projects')}
               whileHover={{ 
                 scale: isTouchDevice ? 1.02 : 1.05, 
                 boxShadow: "0 10px 25px rgba(157, 78, 221, 0.4)",
@@ -662,6 +672,7 @@ const Hero = () => {
             <motion.a 
               href="#contact" 
               className="button secondary-button"
+              onClick={(e) => handleSmoothScroll(e, 'contact')}
               whileHover={{ 
                 scale: isTouchDevice ? 1.02 : 1.05, 
                 boxShadow: "0 10px 25px rgba(157, 78, 221, 0.2)"
@@ -678,6 +689,7 @@ const Hero = () => {
       <motion.a 
         href="#about" 
         className="scroll-down"
+        onClick={(e) => handleSmoothScroll(e, 'about')}
         initial={{ opacity: 0, y: -20 }}
         animate={{ 
           opacity: [0.4, 1, 0.4], 
