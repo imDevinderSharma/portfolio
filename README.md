@@ -92,8 +92,8 @@ The built files will be in the `dist` directory, ready to be deployed to any sta
 
 ## 👤 Author
 
-Your Name: Devinder Sharma
+Your Name: Dev Sharma
 
-- Instagram: [@imDevinderSharma](https://www.instagram.com/imdevindersharma/)
-- GitHub: [@imDevinderSharma](https://github.com/imDevinderSharma)
-- LinkedIn: [@imDevinderSharma](https://www.linkedin.com/in/imdevindersharma/)
+- Instagram: [@imDevSharma](https://www.instagram.com/imdevsharma/)
+- GitHub: [@imDevSharma](https://github.com/imDevSharma)
+- LinkedIn: [@imDevSharma](https://www.linkedin.com/in/imdevsharma/)

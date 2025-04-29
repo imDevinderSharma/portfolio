@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub, faLinkedin, faInstagram } from '@fortawesome/free-brands-svg-icons';
 import { faHeart, faEnvelope, faPhone, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -10,7 +11,7 @@ const Footer = () => {
   const socialLinks = [
     { name: 'GitHub', icon: faGithub, url: 'https://github.com/imDevinderSharma' },
     { name: 'LinkedIn', icon: faLinkedin, url: 'https://www.linkedin.com/in/imdevindersharma/' },
-    { name: 'Instagram', icon: faInstagram, url: 'https://www.instagram.com/imdevindersharma/' },
+    { name: 'Instagram', icon: faInstagram, url: '/instagram-locked', isInternal: true },
   ];
   
   const quickLinks = [
@@ -55,24 +56,38 @@ const Footer = () => {
           variants={footerVariants}
         >
           <motion.div className="footer-section about-section" variants={itemVariants}>
-            <h3 className="footer-title">Devinder</h3>
+            <h3 className="footer-title">Dev</h3>
             <p className="footer-description">
-              I am Devinder Sharma, a dedicated student from Haryana, passionate about technology and web development. I have been innovating online since class 10.
+              I am Dev Sharma, a dedicated student from Haryana, passionate about technology and web development. I have been innovating online since class 10.
             </p>
             <div className="footer-social">
               {socialLinks.map((link) => (
-                <motion.a
-                  key={link.name}
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="social-link"
-                  whileHover={{ y: -5, scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  aria-label={link.name}
-                >
-                  <FontAwesomeIcon icon={link.icon} />
-                </motion.a>
+                link.isInternal ? (
+                  <motion.div key={link.name}>
+                    <Link
+                      to={link.url}
+                      className="social-link"
+                      whileHover={{ y: -5, scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                      aria-label={link.name}
+                    >
+                      <FontAwesomeIcon icon={link.icon} />
+                    </Link>
+                  </motion.div>
+                ) : (
+                  <motion.a
+                    key={link.name}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="social-link"
+                    whileHover={{ y: -5, scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    aria-label={link.name}
+                  >
+                    <FontAwesomeIcon icon={link.icon} />
+                  </motion.a>
+                )
               ))}
             </div>
           </motion.div>
@@ -141,7 +156,7 @@ const Footer = () => {
         >
           <div className="copyright">
             <p>
-              &copy; {currentYear} Devinder. All rights reserved. Made with{' '}
+              &copy; {currentYear} Dev. All rights reserved. Made with{' '}
               <motion.span
                 className="heart-icon"
                 initial={{ scale: 1 }}

@@ -5,6 +5,7 @@ import { useAnimateOnScroll } from '../../hooks/useAnimateOnScroll';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faPhone, faMapMarkerAlt, faCheck, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 import { faLinkedin, faGithub, faInstagram } from '@fortawesome/free-brands-svg-icons';
+import { Link } from 'react-router-dom';
 
 const Contact = () => {
   const { ref, controls } = useAnimateOnScroll();
@@ -158,7 +159,7 @@ const Contact = () => {
   const socialLinks = [
     { name: 'LinkedIn', icon: faLinkedin, url: 'https://www.linkedin.com/in/imdevindersharma/' },
     { name: 'GitHub', icon: faGithub, url: 'https://github.com/imDevinderSharma' },
-    { name: 'Instagram', icon: faInstagram, url: 'https://www.instagram.com/imdevindersharma/' },
+    { name: 'Instagram', icon: faInstagram, url: '/instagram-locked', isInternal: true },
   ];
   
   return (
@@ -228,19 +229,33 @@ const Contact = () => {
               <h4 className="social-title">Find me on</h4>
               <div className="social-links">
                 {socialLinks.map((link) => (
-                  <motion.a
-                    key={link.name}
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={link.name}
-                    className="social-link"
-                    onTouchStart={() => handleTouchStart(link.url)}
-                    whileHover={{ y: -5, scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <FontAwesomeIcon icon={link.icon} />
-                  </motion.a>
+                  link.isInternal ? (
+                    <motion.div key={link.name}>
+                      <Link
+                        to={link.url}
+                        aria-label={link.name}
+                        className="social-link"
+                        whileHover={{ y: -5, scale: 1.1 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <FontAwesomeIcon icon={link.icon} />
+                      </Link>
+                    </motion.div>
+                  ) : (
+                    <motion.a
+                      key={link.name}
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={link.name}
+                      className="social-link"
+                      onTouchStart={() => handleTouchStart(link.url)}
+                      whileHover={{ y: -5, scale: 1.1 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <FontAwesomeIcon icon={link.icon} />
+                    </motion.a>
+                  )
                 ))}
               </div>
             </motion.div>

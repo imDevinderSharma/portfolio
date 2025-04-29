@@ -126,7 +126,7 @@ const Skills = () => {
       logoImage: freeCodeCampLogo,
       year: '2023',
       skills: ['JavaScript', 'Algorithms', 'Data Structures', 'ES6', 'OOP'],
-      certificateLink: 'https://www.freecodecamp.org/certification/iamDevinderSharma/javascript-algorithms-and-data-structures'
+      certificateLink: 'https://www.freecodecamp.org/certification/iamDevSharma/javascript-algorithms-and-data-structures'
     },
     {
       program: 'CS50x: Introduction to Computer Science',

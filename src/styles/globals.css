@@ -377,4 +377,210 @@ img {
   .hero-title {
     font-size: 3rem !important;
   }
+}
+
+/* Instagram Locked Page Styles */
+.locked-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: linear-gradient(135deg, rgba(var(--background-rgb), 0.95), rgba(var(--background-rgb), 0.98));
+  position: relative;
+  overflow: hidden;
+}
+
+.locked-page::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 30% 70%, rgba(var(--primary-rgb), 0.1) 0%, transparent 50%),
+              radial-gradient(circle at 70% 30%, rgba(var(--accent-rgb), 0.1) 0%, transparent 50%);
+  z-index: 0;
+  opacity: 0.6;
+}
+
+.locked-container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.locked-content {
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+  padding: 3.5rem 2.5rem;
+  background: var(--card-bg);
+  border-radius: 1.5rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.locked-content::before {
+  content: "";
+  position: absolute;
+  top: -100px;
+  left: -100px;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(var(--primary-rgb), 0.15), transparent 70%);
+  z-index: -1;
+  border-radius: 50%;
+}
+
+.locked-content::after {
+  content: "";
+  position: absolute;
+  bottom: -100px;
+  right: -100px;
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, rgba(var(--accent-rgb), 0.15), transparent 70%);
+  z-index: -1;
+  border-radius: 50%;
+}
+
+.lock-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 110px;
+  height: 110px;
+  margin: 0 auto 1.5rem;
+  background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.1), rgba(var(--primary-rgb), 0.3));
+  border-radius: 50%;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 6px 25px rgba(var(--primary-rgb), 0.3);
+}
+
+.lock-icon {
+  font-size: 3.5rem;
+  color: var(--primary);
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.3));
+}
+
+.locked-title {
+  margin-bottom: 1rem;
+  font-size: 2.75rem;
+  font-weight: 800;
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  letter-spacing: -0.03em;
+}
+
+.locked-divider {
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--primary), transparent);
+  margin: 0 auto 1.5rem;
+  border-radius: 2px;
+}
+
+.locked-description {
+  font-size: 1.3rem;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+  color: var(--text-color);
+  opacity: 0.9;
+  max-width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.discord-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  font-size: 1.2rem;
+  padding: 1.25rem;
+  margin: 0 auto 2rem;
+  max-width: 85%;
+  background: rgba(114, 137, 218, 0.12);
+  border-radius: 0.8rem;
+  color: var(--text-color);
+  border: 1px solid rgba(114, 137, 218, 0.2);
+  transition: all 0.3s ease;
+}
+
+.discord-icon {
+  color: #7289da;
+  font-size: 1.7rem;
+  filter: drop-shadow(0 2px 4px rgba(114, 137, 218, 0.3));
+}
+
+.discord-username {
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.back-link {
+  text-decoration: none;
+  color: white;
+}
+
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem 1.75rem;
+  background: var(--primary);
+  color: white;
+  border-radius: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(var(--primary-rgb), 0.3);
+}
+
+.back-button:hover {
+  background: var(--primary-light);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(var(--primary-rgb), 0.4);
+}
+
+@media (max-width: 768px) {
+  .locked-content {
+    padding: 2.5rem 1.5rem;
+    max-width: 100%;
+    margin: 0 1rem;
+  }
+
+  .locked-title {
+    font-size: 2rem;
+  }
+  
+  .locked-description {
+    font-size: 1rem;
+    max-width: 100%;
+  }
+  
+  .lock-icon-wrapper {
+    width: 90px;
+    height: 90px;
+  }
+  
+  .lock-icon {
+    font-size: 2.8rem;
+  }
+  
+  .discord-info {
+    padding: 1rem;
+    max-width: 100%;
+  }
 } 

@@ -104,8 +104,8 @@ const Projects = () => {
       description: 'A website for a garden design, creation, maintenance, and landscaping company based in Tucson, Arizona. Features an elegant layout with subtle animations that enhance the user experience.',
       technologies: ['HTML', 'CSS', 'JavaScript', 'Responsive Design', 'Animation'],
       image: luckyShrubImage,
-      githubUrl: 'https://github.com/imDevInderSharma/Lucky-Shrub',
-      liveUrl: 'https://imdevindersharma.github.io/Lucky-Shrub/',
+      githubUrl: 'https://github.com/imDevinderSharma/Lucky-Shrub',
+      liveUrl: 'https://imdevsharma.github.io/Lucky-Shrub/',
       category: 'Frontend',
       icon: faLeaf
     },
@@ -115,7 +115,7 @@ const Projects = () => {
       description: 'A simple website for "Little Lemon" restaurant with integrated table booking functionality. Allows users to view restaurant information and reserve tables.',
       technologies: ['React', 'JavaScript', 'CSS', 'Responsive Design'],
       image: tableBookingImage,
-      githubUrl: 'https://github.com/imDevInderSharma/table-booking',
+      githubUrl: 'https://github.com/imDevinderSharma/table-booking',
       liveUrl: 'https://table-booking-flax.vercel.app/',
       category: 'Frontend',
       icon: faUtensils
@@ -126,8 +126,8 @@ const Projects = () => {
       description: 'A simple personal bio page showcasing favorite music artists, films, and other personal information in a clean, minimalist design.',
       technologies: ['HTML', 'CSS', 'Responsive Design'],
       image: bioPageImage,
-      githubUrl: 'https://github.com/imDevInderSharma/Bio-Page',
-      liveUrl: 'https://imdevindersharma.github.io/Bio-Page/',
+      githubUrl: 'https://github.com/imDevinderSharma/Bio-Page',
+      liveUrl: 'https://imdevsharma.github.io/Bio-Page/',
       category: 'Frontend',
       icon: faUser
     },

@@ -29,7 +29,7 @@ const About = () => {
     {
       icon: faUser,
       title: 'Who I Am',
-      description: 'I am Devinder Sharma, a dedicated student from Haryana, passionate about technology and web development. I have been innovating online since class 10.',
+      description: 'I am Dev Sharma, a dedicated student from Haryana, passionate about technology and web development. I have been innovating online since class 10.',
     },
     {
       icon: faCode,
@@ -74,9 +74,9 @@ const About = () => {
             className="about-intro glass-card"
             variants={itemVariants}
           >
-            <h3>Hello, I'm <span className="text-gradient">Devinder</span></h3>
+            <h3>Hello, I'm <span className="text-gradient">Dev</span></h3>
             <p>
-              I’m Devinder Sharma from Haryana. My passion for technology began in class 10 when I built a website that reached over 50K visitors and ranked on Google. This achievement ignited my creative spirit and set me on a lifelong path in web development.
+              I'm Dev Sharma from Haryana. My passion for technology began in class 10 when I built a website that reached over 50K visitors and ranked on Google. This achievement ignited my creative spirit and set me on a lifelong path in web development.
             </p>
             <p>
               I experimented by launching over ten's of gaming websites. Though not all succeeded, each   project taught me the vital role of a well-designed user interface. This journey encouraged me to pursue self-learning through platforms like YouTube, CS50, Meta, and freeCodeCamp.

@@ -430,7 +430,7 @@ const Hero = () => {
   };
 
   // Split text for character animation
-  const nameText = "Devinder";
+  const nameText = "Dev";
   const nameArray = nameText.split("");
   
   // Add this function to handle smooth scrolling

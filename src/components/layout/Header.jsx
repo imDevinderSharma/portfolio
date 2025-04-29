@@ -189,7 +189,7 @@ const Header = () => {
             transition={{ duration: 0.5 }}
             className="text-gradient"
           >
-            Devinder
+            Dev
           </motion.span>
         </Link>
         
