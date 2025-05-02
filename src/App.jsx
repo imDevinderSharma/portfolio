@@ -7,6 +7,7 @@ import Skills from './components/sections/Skills'
 import Projects from './components/sections/Projects'
 import Contact from './components/sections/Contact'
 import InstagramLocked from './components/pages/InstagramLocked'
+import ErrorBoundary from './components/utils/ErrorBoundary'
 import { useTheme } from './hooks/useTheme'
 
 // Import CSS files
@@ -69,11 +70,21 @@ function App() {
         <Route path="/instagram-locked" element={<InstagramLocked />} />
         <Route path="/" element={
           <Layout>
-            <Hero />
-            <About />
-            <Skills />
-            <Projects />
-            <Contact />
+            <ErrorBoundary>
+              <Hero />
+            </ErrorBoundary>
+            <ErrorBoundary>
+              <About />
+            </ErrorBoundary>
+            <ErrorBoundary>
+              <Skills />
+            </ErrorBoundary>
+            <ErrorBoundary>
+              <Projects />
+            </ErrorBoundary>
+            <ErrorBoundary>
+              <Contact />
+            </ErrorBoundary>
           </Layout>
         } />
       </Routes>

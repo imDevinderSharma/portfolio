@@ -14,7 +14,11 @@ import {
 // Import project images from assets
 import luckyShrubImage from '../../assets/lucky-shrub.jpg';
 import tableBookingImage from '../../assets/table-booking.jpg';
+// Use a placeholder image if bio-page.png is missing
 import bioPageImage from '../../assets/bio-page.png';
+
+// Fallback image if the import fails
+const fallbackImage = 'https://via.placeholder.com/800x600?text=Bio+Page+Project';
 
 const Projects = () => {
   const [activeProject, setActiveProject] = useState(0);
@@ -125,7 +129,7 @@ const Projects = () => {
       title: 'Bio Page',
       description: 'A simple personal bio page showcasing favorite music artists, films, and other personal information in a clean, minimalist design.',
       technologies: ['HTML', 'CSS', 'Responsive Design'],
-      image: bioPageImage,
+      image: bioPageImage || fallbackImage, // Use fallback if image fails to load
       githubUrl: 'https://github.com/imDevinderSharma/Bio-Page',
       liveUrl: 'https://imdevsharma.github.io/Bio-Page/',
       category: 'Frontend',
